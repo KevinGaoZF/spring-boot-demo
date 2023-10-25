@@ -1,17 +1,14 @@
 server:
   port: 9188
 spring:
-  redis:
-    database: 0           # 数据库
-    host: 127.0.0.1       # Redis服务器
-    port: 6379            # Redis端口号
-#    password: foobared    # Redis服务器密码
-    timeout: 5000         # 超时时间（毫秒）
+  # spring data 链接数据库配置
   datasource:
-    url: jdbc:mysql://49.235.231.199:6033/esati_fast_dev?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
-    username: esati
-    password: 2XisG37tdHW8C3Yz
+    # 链接字符串
+    url: jdbc:mysql://49.235.231.199:6033/demo?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+    username: root
+    password: Ppos123456
     driver-class-name: com.mysql.cj.jdbc.Driver
+# 日志输出级别
 logging:
   level:
     org.springframework.jdbc.core.JdbcTemplate: DEBUG

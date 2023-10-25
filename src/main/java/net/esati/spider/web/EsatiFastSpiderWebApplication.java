@@ -1,6 +1,5 @@
 package net.esati.spider.web;
 
-import com.github.lianjiatech.retrofit.spring.boot.annotation.RetrofitScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
