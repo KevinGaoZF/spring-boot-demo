@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>币种数据</title>
+  <meta charset="UTF-8">
+</head>
+<body>
+<div>
+	<h1 id="updateTime"></h1> <!-- 添加更新时间 -->
+</div>
+<table id="table"></table>
+
+<script>
+   // 定义刷新时间间隔（以毫秒为单位）
+        const refreshInterval = 6000;
+		
+		 // 获取当前时间
+        function getCurrentTime() {
+            let date = new Date();
+            let hours = date.getHours().toString().padStart(2, '0');
+            let minutes = date.getMinutes().toString().padStart(2, '0');
+            let seconds = date.getSeconds().toString().padStart(2, '0');
+
+            return `${hours}:${minutes}:${seconds}`;
+        }
+
+        // 更新时间
+        function updateTime() {
+		 // 获取更新时间的元素
+			let updateTimeElement = document.getElementById('updateTime');
+            updateTimeElement.textContent = "数据更新时间：" + getCurrentTime();
+        }
+
+
+        // 定义函数来获取并展示JSON数据
+        function displayJSONData() {
+            // 读取JSON文件
+            fetch('data.json')
+                .then(response => response.json())
+                .then(data => {
+					updateTime();
+                    // 创建表格头部
+                    let table = document.getElementById('table');
+                    table.innerHTML = ''; // 清空表格内容
+                    let thead = table.createTHead();
+                    let row = thead.insertRow();
+                    row.insertCell().textContent = "序号"; // 添加序号列
+
+                    let keys = Object.keys(data[0]); // 获取键的数组
+
+                    for (let key of keys) {
+                        let th = document.createElement('th');
+                        th.textContent = key;
+						if(th){
+							console.log(th);
+							row.appendChild(th);
+						}
+                        
+                    }
+
+                    // 创建表格内容
+                    let tbody = table.createTBody();
+                    for (let i = 0; i < data.length; i++) {
+                        let obj = data[i];
+                        row = tbody.insertRow();
+                        row.insertCell().textContent = i + 1; // 序号从1开始
+                        for (let key of keys) {
+                            let cell = row.insertCell();
+                            cell.textContent = obj[key];
+                        }
+                    }
+                })
+                .catch(error => console.log(error));
+        }
+
+        updateTime();
+        displayJSONData();
+
+        // 定时刷新表格数据
+        setInterval(displayJSONData, refreshInterval);
+</script>
+</body>
+</html>
